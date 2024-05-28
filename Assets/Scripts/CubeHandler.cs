@@ -1,14 +1,11 @@
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class CubeHandler : MonoBehaviour
 {
     [SerializeField] private CubeClickExplosioner _explosioner;
 
-    private int _minCubeCount = 2;
-    private int _maxCubeCount = 7;
-    private int _generateCubesPercent = 100;
-    private float _radius = 9f;
-    private float _force = 25f;
+    private static int _generateCubesPercent = 100;
 
     private void OnEnable()
     {
@@ -28,9 +25,12 @@ public class CubeHandler : MonoBehaviour
 
     private void GenerateCubes()
     {
+        int minCubeCount = 2;
+        int maxCubeCount = 7;
+
         if (VerifySplitCube() == true)
         {
-            int cubesCount = Random.Range(_minCubeCount, _maxCubeCount);
+            int cubesCount = Random.Range(minCubeCount, maxCubeCount);
 
             for (int i = 0; i < cubesCount; i++)
             {
@@ -43,11 +43,15 @@ public class CubeHandler : MonoBehaviour
 
     private void GenerateCube()
     {
+        float radius = 15f;
+        float force = 30f;
+
         GameObject cube = Instantiate(gameObject);
         Vector3 scale = cube.transform.localScale / 2;
         cube.transform.localScale = scale;
         SetRandomColor(cube);
-        cube.GetComponent<Rigidbody>().AddExplosionForce(_force, transform.position, _radius);
+
+        cube.GetComponent<Rigidbody>().AddExplosionForce(force, transform.position, radius);
     }
 
     private void SetRandomColor(GameObject cube)
@@ -58,13 +62,12 @@ public class CubeHandler : MonoBehaviour
 
     private bool VerifySplitCube()
     {
-        int minChance = 0;
         int maxChance = 101;
+        int borderChance = 50;
 
-        bool chance = Random.Range(minChance + _generateCubesPercent, maxChance) >= _generateCubesPercent;
+        bool chance = Random.Range(_generateCubesPercent, maxChance) >= borderChance;
 
         _generateCubesPercent /= 2;
-
         return chance;
     }
 }
