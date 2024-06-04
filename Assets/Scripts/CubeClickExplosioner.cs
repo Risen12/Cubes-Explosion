@@ -1,11 +1,11 @@
-using System;
+using System.Threading;
 using UnityEngine;
 
 public class CubeClickExplosioner : MonoBehaviour
 {
-    public event Action<Vector3> CubeClicked;
+    [SerializeField] private Spawner _spawner;
 
-    [SerializeField] private Ray _ray;
+    private Ray _ray;
     private Camera _camera;
     private float _maxDistance = 10f;
 
@@ -18,16 +18,26 @@ public class CubeClickExplosioner : MonoBehaviour
     {
         int primaryMouseButtonIndex = 0;
         RaycastHit hit;
+        Cube cube;
 
         _ray = _camera.ScreenPointToRay(Input.mousePosition);
 
-        Debug.DrawRay(_ray.origin, _ray.direction * _maxDistance, Color.yellow);
-
-        if (Physics.Raycast(_ray, out hit, Mathf.Infinity))
+        if (Physics.Raycast(_ray, out hit, _maxDistance))
         {
             if (Input.GetMouseButtonDown(primaryMouseButtonIndex))
             {
-                CubeClicked?.Invoke(hit.transform.position);
+                if(hit.collider.TryGetComponent(out cube))
+                {
+                    if (cube.VerifySplitCube())
+                    {
+                        Transform transform = cube.transform;
+                        int splitChance = cube.SplitChance;
+
+                        _spawner.SpawnObjects(splitChance, transform);
+                    }
+
+                    Destroy(cube.gameObject);
+                }
             }
         }
     }
