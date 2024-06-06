@@ -6,7 +6,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] Explosioner _explosioner;
     [SerializeField] ColorChanger _colorChanger;
 
-    public void SpawnObjects(int splitChance, Transform parent)
+    public void SpawnObjects(int splitChance, Cube parent)
     {
         int minCubesCount = 2;
         int maxCubesCount = 7;
@@ -14,19 +14,32 @@ public class Spawner : MonoBehaviour
         int count = Random.Range(minCubesCount, maxCubesCount);
 
         for (int i = 0; i < count; i++)
-            SpawnObject(splitChance, parent);
+            SpawnObject(splitChance, parent.transform);
+
+        _explosioner.Explode(parent);
     }
 
     private void SpawnObject(int splitChance, Transform parent)
     {
         int divider = 2;
-        Cube cube = Instantiate(_prefab, parent);
-        Debug.Log(cube.transform.position);
-        Vector3 scale = cube.transform.localScale / divider;
+        Vector3 position = GetPosition(parent.position);
+
+        Cube cube = Instantiate(_prefab, position, parent.rotation);
+
+        Vector3 scale = parent.localScale / divider;
         cube.transform.localScale = scale;
         cube.SetSplitChance(splitChance / divider);
 
         _colorChanger.SetRandomColor(cube);
-        _explosioner.Explode(cube);
+    }
+
+    private Vector3 GetPosition(Vector3 startPosition)
+    {
+        float[] values = new float[] {-0.1f, 0.1f };
+
+        float addToX = values[Random.Range(0, values.Length)];
+        float addToZ = values[Random.Range(0, values.Length)];
+
+        return new Vector3(startPosition.x + addToX, startPosition.y, startPosition.z + addToZ);
     }
 }

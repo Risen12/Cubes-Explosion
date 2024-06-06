@@ -1,4 +1,3 @@
-using System.Threading;
 using UnityEngine;
 
 public class CubeClickExplosioner : MonoBehaviour
@@ -7,7 +6,7 @@ public class CubeClickExplosioner : MonoBehaviour
 
     private Ray _ray;
     private Camera _camera;
-    private float _maxDistance = 10f;
+    private float _maxDistance = 30f;
 
     private void Start()
     {
@@ -22,6 +21,8 @@ public class CubeClickExplosioner : MonoBehaviour
 
         _ray = _camera.ScreenPointToRay(Input.mousePosition);
 
+        Debug.DrawRay(_ray.origin, _ray.direction * _maxDistance, Color.yellow);
+
         if (Physics.Raycast(_ray, out hit, _maxDistance))
         {
             if (Input.GetMouseButtonDown(primaryMouseButtonIndex))
@@ -33,7 +34,7 @@ public class CubeClickExplosioner : MonoBehaviour
                         Transform transform = cube.transform;
                         int splitChance = cube.SplitChance;
 
-                        _spawner.SpawnObjects(splitChance, transform);
+                        _spawner.SpawnObjects(splitChance, cube);
                     }
 
                     Destroy(cube.gameObject);
