@@ -3,6 +3,7 @@ using UnityEngine;
 public class CubeClickExplosioner : MonoBehaviour
 {
     [SerializeField] private Spawner _spawner;
+    [SerializeField] private Explosioner _explosioner;
 
     private Ray _ray;
     private Camera _camera;
@@ -31,11 +32,12 @@ public class CubeClickExplosioner : MonoBehaviour
                 {
                     if (cube.VerifySplitCube())
                     {
-                        Transform transform = cube.transform;
                         int splitChance = cube.SplitChance;
 
                         _spawner.SpawnObjects(splitChance, cube);
                     }
+                    else
+                        _explosioner.CreateExplode(cube);
 
                     Destroy(cube.gameObject);
                 }

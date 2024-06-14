@@ -8,10 +8,12 @@ public class Cube : MonoBehaviour
 
     public bool VerifySplitCube()
     {
+        int minChance = 1;
         int maxChance = 101;
-        int borderChance = 52;
 
-        bool chance = Random.Range(_splitChance, maxChance) >= borderChance;
+        int number = Random.Range(minChance, maxChance);
+
+        bool chance = number <= _splitChance;
 
         return chance;
     }
