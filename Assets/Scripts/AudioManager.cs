@@ -1,6 +1,6 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] private AudioClip _explosionSound;

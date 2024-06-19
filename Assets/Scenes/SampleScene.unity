@@ -777,7 +777,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _explosionRadius: 500
   _explosionForce: 500
-  _explosionEffect: {fileID: 198000012942003240, guid: ecdd96beb7f93494880c052dfccf9dc1, type: 3}
+  _explosionEffect: {fileID: 19800006, guid: 4575df893a6e3f64a8283dee38413a34, type: 3}
   _audioManager: {fileID: 2102913265}
 --- !u!4 &1223698015
 Transform:

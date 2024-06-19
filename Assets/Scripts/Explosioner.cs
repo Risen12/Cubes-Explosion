@@ -28,6 +28,6 @@ public class Explosioner : MonoBehaviour
         Instantiate(_explosionEffect, cubeTransform.position, Quaternion.identity);
     }
 
-    public void Explode(Cube cube) => cube.GetComponent<Rigidbody>().AddExplosionForce(_explosionForce, cube.transform.position, _explosionRadius);
+    public void Explode(Cube cube) => cube.Explode(_explosionForce, _explosionRadius);
 
 }

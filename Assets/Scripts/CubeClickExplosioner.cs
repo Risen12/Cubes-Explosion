@@ -30,14 +30,16 @@ public class CubeClickExplosioner : MonoBehaviour
             {
                 if(hit.collider.TryGetComponent(out cube))
                 {
-                    if (cube.VerifySplitCube())
+                    if (cube.Split())
                     {
                         int splitChance = cube.SplitChance;
 
                         _spawner.SpawnObjects(splitChance, cube);
                     }
                     else
+                    {
                         _explosioner.CreateExplode(cube);
+                    }
 
                     Destroy(cube.gameObject);
                 }
