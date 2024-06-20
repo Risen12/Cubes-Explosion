@@ -30,7 +30,7 @@ public class CubeClickExplosioner : MonoBehaviour
             {
                 if(hit.collider.TryGetComponent(out cube))
                 {
-                    if (cube.Split())
+                    if (cube.WillSplit())
                     {
                         int splitChance = cube.SplitChance;
 

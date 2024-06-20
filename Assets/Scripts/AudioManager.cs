@@ -7,11 +7,11 @@ public class AudioManager : MonoBehaviour
 
     private AudioSource _audioSource;
 
-    public void PlayExplosionSound() => _audioSource.Play();
-
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
         _audioSource.clip = _explosionSound;
     }
+
+    public void PlayExplosionSound() => _audioSource.Play();
 }

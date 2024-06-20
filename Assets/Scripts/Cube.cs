@@ -1,13 +1,14 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Renderer))]
 public class Cube : MonoBehaviour
 {
     [SerializeField] private int _splitChance = 100;
 
     public int SplitChance => _splitChance;
 
-    public bool Split()
+    public bool WillSplit()
     {
         int minChance = 1;
         int maxChance = 101;
@@ -16,6 +17,9 @@ public class Cube : MonoBehaviour
 
         return number <= _splitChance;
     }
+
+    public Renderer GetRenderer() => GetComponent<Renderer>();
+
 
     public void SetSplitChance(int chance)
     {
