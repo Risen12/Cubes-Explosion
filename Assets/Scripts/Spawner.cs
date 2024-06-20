@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] Cube _prefab;
-    [SerializeField] Explosioner _explosioner;
-    [SerializeField] ColorChanger _colorChanger;
+    [SerializeField] private Cube _prefab;
+    [SerializeField] private Explosioner _explosioner;
+    [SerializeField] private ColorChanger _colorChanger;
 
     public void SpawnObjects(int splitChance, Cube parent)
     {
