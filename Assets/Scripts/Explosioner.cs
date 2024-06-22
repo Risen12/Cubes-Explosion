@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class Explosioner : MonoBehaviour
 {
@@ -27,5 +26,4 @@ public class Explosioner : MonoBehaviour
     }
 
     public void Explode(Cube cube) => cube.Explode(_explosionForce, _explosionRadius);
-
 }
