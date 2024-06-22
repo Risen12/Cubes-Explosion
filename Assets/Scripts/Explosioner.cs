@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class Explosioner : MonoBehaviour
 {
@@ -15,12 +16,9 @@ public class Explosioner : MonoBehaviour
 
         foreach (Collider item in hits)
         {
-            if (item.transform.TryGetComponent(out Cube exposionCube))
+            if (item.transform.TryGetComponent(out Cube explosionCube))
             {
-                if (exposionCube.TryGetComponent(out Rigidbody rigidbody))
-                {
-                    rigidbody.AddExplosionForce(_explosionForce * explosiondMultiplyier, cube.transform.position, _explosionRadius * explosiondMultiplyier);
-                }
+                    explosionCube.ExplodeFromPosition(_explosionForce * explosiondMultiplyier, _explosionRadius * explosiondMultiplyier, cube.transform.position);
             }
         }
 

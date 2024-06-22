@@ -6,7 +6,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Explosioner _explosioner;
     [SerializeField] private ColorChanger _colorChanger;
 
-    public void SpawnObjects(int splitChance, Cube parent)
+    public void SpawnObjects(Cube parent)
     {
         int minCubesCount = 2;
         int maxCubesCount = 7;
@@ -14,7 +14,7 @@ public class Spawner : MonoBehaviour
         int count = Random.Range(minCubesCount, maxCubesCount);
 
         for (int i = 0; i < count; i++)
-            SpawnObject(splitChance, parent.transform);
+            SpawnObject(parent.SplitChance, parent.transform);
 
         _explosioner.Explode(parent);
     }

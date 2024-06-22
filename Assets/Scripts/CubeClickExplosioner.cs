@@ -22,19 +22,15 @@ public class CubeClickExplosioner : MonoBehaviour
 
         _ray = _camera.ScreenPointToRay(Input.mousePosition);
 
-        Debug.DrawRay(_ray.origin, _ray.direction * _maxDistance, Color.yellow);
-
         if (Physics.Raycast(_ray, out hit, _maxDistance))
         {
             if (Input.GetMouseButtonDown(primaryMouseButtonIndex))
             {
                 if(hit.collider.TryGetComponent(out cube))
                 {
-                    if (cube.WillSplit())
+                    if (cube.CanSplit())
                     {
-                        int splitChance = cube.SplitChance;
-
-                        _spawner.SpawnObjects(splitChance, cube);
+                        _spawner.SpawnObjects(cube);
                     }
                     else
                     {
